@@ -85,7 +85,7 @@
                 //selection.selectAll('path.select').remove();
                 var pathData = [];
                 
-                if (flag) {
+                if (crossZeroAngle) {
                     //console.log('Min: ' + Math.min(startAngle, endAngle) + ' Max: ' + Math.max(startAngle, endAngle));
                      pathData = [{'start': Math.max(startAngle, endAngle), 'end': Math.PI * 2},
                             {'start': 0, 'end': Math.min(endAngle, startAngle)}];
