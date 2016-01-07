@@ -141,7 +141,7 @@
           // Select feature requires RxJS
           if (Rx && Rx.Observable && variable.dom) {
               var MouseDowns = Rx.Observable.fromEvent(variable.dom, 'mousedown'),
-                  MouseUps = Rx.Observable.fromEvent(variable.dom, 'mouseup'),
+                  MouseUps = Rx.Observable.fromEvent(window, 'mouseup'),
                   MouseMoves = Rx.Observable.fromEvent(variable.dom, 'mousemove'),
                   MouseDrags = MouseDowns.concatMap(function(startPoint) {
                       return MouseMoves.startWith(null)
