@@ -24,7 +24,9 @@
           ratio: .6,                    // portion of color palette in circle
           dom: undefined,               // DOM element where mouse events attached
           selection: [],                // store the color selection result
-          onSelectionChanged: (d) => {} // callback function when selection range changed
+          onSelectionChanged: function(d) {
+              return;
+          }                             // callback function when selection range changed
       },
       // map [0, 360] to [0, 2 * PI]
       angleMap = d3.scale.linear()
