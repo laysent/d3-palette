@@ -45,8 +45,8 @@
       // map (x, y) to angle, where origin point is the center point of circle
       angle = function(_x, _y) {
             // use position point to calculate the vector (x, y)
-          var x = _x - variable.radius,
-            y = variable.radius - _y,
+          var x = _x - variable.dom.getBoundingClientRect().left - variable.radius,
+            y = variable.radius - _y + variable.dom.getBoundingClientRect().top,
             // (cx, cy) is the vector ↑
             cx = 0,
             cy = variable.radius,
@@ -121,6 +121,8 @@
       }
       
       var palette = function(svg) {
+          svg.on('mousedown', function() { event.preventDefault ? event.preventDefault() : event.returnValue = false });
+          
           svg.append('g')
              .attr({
                  'transform': 'translate(' + variable.radius + ', ' + variable.radius + ')',
@@ -136,6 +138,7 @@
             .enter()
             .append('path')
             .attr('d', arc)
+            .on('mousedown', function() { event.preventDefault ? event.preventDefault() : event.returnValue = false })
             .style('fill', function(d, i) {
                 return 'hsl(' + i + ',100%,50%)';
             });
@@ -150,8 +153,8 @@
                         .takeUntil(MouseUps)
                         .map(function(movePoint) {
                             return movePoint == null ? null : {
-                                'x': movePoint.offsetX,
-                                'y': movePoint.offsetY
+                                'x': movePoint.clientX,
+                                'y': movePoint.clientY
                             };
                         })
                   }),
@@ -189,8 +192,8 @@
                   
                   MouseDowns.forEach(function(startPoint) {
                       flag = false;
-                      drawFunction = draw(svg, startPoint.offsetX, startPoint.offsetY);
-                      startAngle = angle(startPoint.offsetX, startPoint.offsetY);
+                      drawFunction = draw(svg, startPoint.clientX, startPoint.clientY);
+                      startAngle = angle(startPoint.clientX, startPoint.clientY);
                   });
                   CrossOrigin.forEach(function(bool) {
                       flag = !flag;
